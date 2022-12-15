@@ -2,7 +2,7 @@ import discord
 from mcstatus import JavaServer
 from discord.ext import commands, tasks
 
-TOKEN = 'YOUR_TOKEN'
+TOKEN = 'YOUR TOKEN HERE'
 
 SERVER_IP = "hypixel.net"
 SERVER_PORT = 25565
@@ -26,9 +26,9 @@ async def changeServer(interaction: discord.Interaction, serverip: str, serverpo
 
 @tasks.loop(seconds=5.0)
 async def updateStatus():
-    status = JavaServer.lookup(SERVER_IP, SERVER_PORT).status()
+    status = JavaServer.lookup(SERVER_IP + ":" + str(SERVER_PORT)).status()
     count = str(status.players.online) + "/" + str(status.players.max)
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=(count + " on " + SERVER_IP)))
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=(count + " on " + SERVER_IP + ":" + str(SERVER_PORT))))
 
 
 bot.run(TOKEN)
